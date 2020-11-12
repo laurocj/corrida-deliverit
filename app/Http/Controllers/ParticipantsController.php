@@ -15,7 +15,7 @@ class ParticipantsController extends Controller
      */
     public function store(ParticipantsStoreRequest $request)
     {
-        $post = Participant::create($request->all());
-        return response()->json($post, 201);
+        $participant = Participant::create($request->all());
+        return response()->json($participant, 201);
     }
 }

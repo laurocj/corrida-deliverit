@@ -15,7 +15,7 @@ class RacingsController extends Controller
      */
     public function store(RacingsStoreRequest $request)
     {
-        $post = Racing::create($request->all());
-        return response()->json($post, 201);
+        $racing = Racing::create($request->all());
+        return response()->json($racing, 201);
     }
 }
