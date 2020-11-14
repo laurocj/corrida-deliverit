@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Participant;
 use Tests\TestCase;
 
 class ParticipantsTest extends TestCase
@@ -15,7 +14,7 @@ class ParticipantsTest extends TestCase
         $data = [
             'name' => $this->faker->name,
             'cpf' => $this->faker->cpf,
-            'birth' => \Carbon\Carbon::now()->subYears(18)->format('Y-m-d')
+            'birth' => \Carbon\Carbon::now()->subYears(mt_rand(18, 60))->format('Y-m-d')
         ];
 
         $this->json('POST', route('participants.store'), $data)
