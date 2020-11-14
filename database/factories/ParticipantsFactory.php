@@ -11,6 +11,6 @@ $factory->define(Participant::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'cpf' => $faker->cpf,
-        'birth' => date("Y-m-d", strtotime("-18 years"))
+        'birth' => \Carbon\Carbon::now()->subYears(18)->format('Y-m-d')
     ];
 });
