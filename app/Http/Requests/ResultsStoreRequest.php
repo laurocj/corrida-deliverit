@@ -27,7 +27,7 @@ class ResultsStoreRequest extends FormRequest
             'participant' => 'required|exists:participants,id',
             'racing' => 'required|exists:racings,id',
             'start' => 'required|date_format:H:i:s',
-            'end' => 'required|date_format:H:i:s',
+            'finish' => 'required|date_format:H:i:s',
         ];
     }
 }

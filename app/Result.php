@@ -10,6 +10,6 @@ class Result extends Model
         'participant_id',
         'racing_id',
         'start',
-        'end'
+        'finish'
     ];
 }

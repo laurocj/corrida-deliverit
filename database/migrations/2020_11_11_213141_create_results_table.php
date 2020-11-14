@@ -16,7 +16,7 @@ class CreateResultsTable extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->id();
             $table->time('start');
-            $table->time('end');
+            $table->time('finish');
 
             $table->unsignedBigInteger('participant_id');
             $table->unsignedBigInteger('racing_id');

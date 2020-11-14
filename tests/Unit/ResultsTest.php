@@ -20,7 +20,7 @@ class ResultsTest extends TestCase
             'participant' => $participant->id,
             'racing' => $racing->id,
             'start' => date('H:i:s', strtotime('+' . mt_rand(0, 2) . ' hours')),
-            'end' => date('H:i:s', strtotime('+' . mt_rand(2, 4) . ' hours'))
+            'finish' => date('H:i:s', strtotime('+' . mt_rand(2, 4) . ' hours'))
         ];
 
         $this->json('POST', route('results.store'), $data)
@@ -39,7 +39,7 @@ class ResultsTest extends TestCase
             'participant' => 1000,
             'racing' => $racing->id,
             'start' => date('H:i:s', strtotime('+' . mt_rand(0, 2) . ' hours')),
-            'end' => date('H:i:s', strtotime('+' . mt_rand(2, 4) . ' hours'))
+            'finish' => date('H:i:s', strtotime('+' . mt_rand(2, 4) . ' hours'))
         ];
 
         $this->json('POST', route('results.store'), $data)
@@ -58,7 +58,7 @@ class ResultsTest extends TestCase
             'participant' => $participant->id,
             'racing' => 1000,
             'start' => date('H:i:s', strtotime('+' . mt_rand(0, 2) . ' hours')),
-            'end' => date('H:i:s', strtotime('+' . mt_rand(2, 4) . ' hours'))
+            'finish' => date('H:i:s', strtotime('+' . mt_rand(2, 4) . ' hours'))
         ];
 
         $this->json('POST', route('results.store'), $data)

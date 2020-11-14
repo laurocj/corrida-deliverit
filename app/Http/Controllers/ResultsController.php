@@ -20,7 +20,7 @@ class ResultsController extends Controller
                 'participant_id' => $request->participant,
                 'racing_id' => $request->racing,
                 'start' => $request->start,
-                'end' => $request->end,
+                'finish' => $request->finish
             ]
         );
 
@@ -28,7 +28,7 @@ class ResultsController extends Controller
             'participant' => $post->participant_id,
             'racing' => $post->racing_id,
             'start' => $post->start,
-            'end' => $post->end
+            'finish' => $post->finish
         ], 201);
     }
 }
