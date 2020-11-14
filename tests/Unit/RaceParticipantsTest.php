@@ -24,6 +24,28 @@ class RaceParticipantsTest extends TestCase
         $this->json('POST', route('race-participants.store'), $data)
             ->assertStatus(201)
             ->assertJson($data);
+
+            return [$participant, $racing];
+    }
+
+    /**
+     * @return void
+     * @depends test_can_create_race_participants
+     */
+    public function test_cannot_create_race_participants_for_the_same_participating_in_the_same_day(array $array)
+    {
+        $participant = $array[0];
+        $racing = $array[1];
+        $racingNew = factory(Racing::class)->create(['date' => $racing->date]);
+
+        $data = [
+            'participant' => $participant->id,
+            'racing' => $racingNew->id
+        ];
+
+        $this->json('POST', route('race-participants.store'), $data)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['participant' => 'A participant can only register for races on different days']);
     }
 
     /**

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\RaceParticipant;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class RaceParticipantsStoreRequest extends FormRequest
 {
@@ -23,9 +25,34 @@ class RaceParticipantsStoreRequest extends FormRequest
      */
     public function rules()
     {
+        $racing_id = $this->racing;
+
+        Validator::extend('participate_once_per_date', function ($attribute, $value) use ($racing_id) {
+
+            $query = RaceParticipant::join('racings', 'race_participants.racing_id', '=', 'racings.id')
+                    ->where('participant_id', $value)
+                    ->where('racings.date', function($query) use ($racing_id) {
+                        $query->select('date')->from('racings')->where('id', $racing_id);
+                    });
+
+            return !$query->count();
+        });
+
         return [
-            'participant' => 'required|exists:participants,id',
-            'racing' => 'required|exists:racings,id',
+            'participant' => 'required|exists:participants,id|participate_once_per_date',
+            'racing' => 'required|exists:racings,id'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'participant.participate_once_per_date' => 'A participant can only register for races on different days'
         ];
     }
 }
