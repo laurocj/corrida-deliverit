@@ -17,6 +17,7 @@ class CreateResultsTable extends Migration
             $table->id();
             $table->time('start');
             $table->time('finish');
+            $table->time('duration');
 
             $table->unsignedBigInteger('participant_id');
             $table->unsignedBigInteger('racing_id');

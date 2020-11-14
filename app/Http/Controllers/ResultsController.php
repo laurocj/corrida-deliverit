@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ResultsStoreRequest;
 use App\Result;
+use Carbon\Carbon;
 
 class ResultsController extends Controller
 {
@@ -15,12 +16,21 @@ class ResultsController extends Controller
      */
     public function store(ResultsStoreRequest $request)
     {
+        if(!empty($request->finish)) {
+            $startTime = Carbon::parse($request->start);
+            $finishTime = Carbon::parse($request->finish);
+            $request->duration = $finishTime->diff($startTime)->format('%H:%I:%S');
+        } else {
+            $request->duration = '00:00:00';
+        }
+
         $post = Result::create(
             [
                 'participant_id' => $request->participant,
                 'racing_id' => $request->racing,
                 'start' => $request->start,
-                'finish' => $request->finish
+                'finish' => $request->finish,
+                'duration' => $request->duration
             ]
         );
 
