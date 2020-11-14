@@ -40,7 +40,9 @@ class RaceParticipantsStoreRequest extends FormRequest
 
         return [
             'participant' => 'required|exists:participants,id|participate_once_per_date',
-            'racing' => 'required|exists:racings,id'
+            'racing' => 'required|exists:racings,id',
+            'start' => 'nullable|date_format:H:i:s',
+            'finish' => 'nullable|date_format:H:i:s',
         ];
     }
 

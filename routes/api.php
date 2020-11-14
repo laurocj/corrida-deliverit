@@ -17,8 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/participants', 'ParticipantsController@store')->name('participants.store');
 Route::post('/racings', 'RacingsController@store')->name('racings.store');
 Route::post('/race-participants', 'RaceParticipantsController@store')->name('race-participants.store');
-Route::post('/results', 'ResultsController@store')->name('results.store');
-Route::get('/results', 'ResultsController@index')->name('results.index');
+Route::get('/results', 'RaceParticipantsController@index')->name('race-participants.index');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

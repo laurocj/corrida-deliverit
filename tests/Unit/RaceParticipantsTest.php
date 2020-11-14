@@ -81,4 +81,62 @@ class RaceParticipantsTest extends TestCase
             ->assertStatus(422)
             ->assertJsonValidationErrors(['racing']);
     }
+
+    /**
+     * @return void
+     */
+    public function test_can_create_results()
+    {
+        $racing = factory(Racing::class)->create();
+        $participant = factory(Participant::class)->create();
+
+        $data = [
+            'participant' => $participant->id,
+            'racing' => $racing->id,
+            'start' => '08:00:00',
+            'finish' => \Carbon\Carbon::parse('08:00:00')->addMinutes(mt_rand(60, 120))->format('H:i:s')
+        ];
+
+        $this->json('POST', route('race-participants.store'), $data)
+            ->assertStatus(201)
+            ->assertJson($data);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_cannot_create_results_for_participant_that_does_not_exist()
+    {
+        $racing = factory(Racing::class)->create();
+
+        $data = [
+            'participant' => 1000,
+            'racing' => $racing->id,
+            'start' => '08:00:00',
+            'finish' => \Carbon\Carbon::parse('08:00:00')->addMinutes(mt_rand(60, 120))->format('H:i:s')
+        ];
+
+        $this->json('POST', route('race-participants.store'), $data)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['participant']);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_cannot_create_results_for_racing_that_does_not_exist()
+    {
+        $participant = factory(Participant::class)->create();
+
+        $data = [
+            'participant' => $participant->id,
+            'racing' => 1000,
+            'start' => '08:00:00',
+            'finish' => \Carbon\Carbon::parse('08:00:00')->addMinutes(mt_rand(60, 120))->format('H:i:s')
+        ];
+
+        $this->json('POST', route('race-participants.store'), $data)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['racing']);
+    }
 }
