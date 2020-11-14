@@ -29,7 +29,7 @@ class RancingsTest extends TestCase
     {
         $data = [
             'distance' => array_rand(Racing::DISTANCES, 1),
-            'date' => date('Y-m-d', strtotime('-' . mt_rand(0, 30) . ' days'))
+            'date' => date('Y-m-d', strtotime('-' . mt_rand(1, 30) . ' days'))
         ];
 
         $this->json('POST', route('racings.store'), $data)
