@@ -26,10 +26,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_DATABASE: corrida-deliverit
+      MYSQL_ROOT_PASSWORD: corrida-deliverit
+      MYSQL_PASSWORD: corrida-deliverit
+      MYSQL_USER: corrida-deliverit
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:

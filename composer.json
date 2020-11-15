@@ -58,6 +58,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "deploy-docker": [
+            "composer install",
+            "php -r \"file_exists('.env') || copy('.docker.env', '.env');\"",
+            "php artisan key:generate --ansi"
         ]
     }
 }
