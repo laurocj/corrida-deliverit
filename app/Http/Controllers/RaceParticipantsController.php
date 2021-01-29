@@ -133,13 +133,15 @@ class RaceParticipantsController extends Controller
                 if (is_string($breakpoint) || $breakpoint >= $result->age) {
                     $distance = Racing::DISTANCES[$result->distance];
 
-                    $array['racing_' . $distance][] = [
+                    $key = 'racing_' . $distance;
+
+                    $array[$key][] = [
                         'racing'        => $result->racing_id,
                         'distance'      => $distance . ' Km',
                         'paticipant'    => $result->participant_id,
                         'age'           => $result->age,
                         'name'          => $result->name,
-                        'position'      => isset($array[$distance]) ? count($array[$distance]) + 1 : 1
+                        'position'      => isset($array[$key]) ? count($array[$key]) + 1 : 1
                     ];
                     break;
                 }
